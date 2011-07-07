@@ -1,39 +1,46 @@
+var m = require('measure');
+var url = 'onet.pl';
 
 exports.test_add = function(test) {
-    var m = require('domcontentloaded/measurement');
-    var url = 'onet.pl';
+    m.clear(url);
 
     m.add(url, 10);
-    testRunner.assertEqual(m.getLast(url), 10);
-    testRunner.done();
+    test.assertEqual(m.getLast(url), 10);
+
+    m.add(url, 0);
+    test.assertEqual(m.getLast(url), 0);
+
+    m.add(url, 5.5);
+    test.assertEqual(m.getLast(url), 5.5);
+    
+    test.done();
 }
- 
-//function check_translation(translation) {
-//  testRunner.assertEqual("Lizard", translation);
-//  testRunner.done();
-//}
-// 
-//function test_languages(test, text) {
-//  testRunner= test;
-//  testRunner.waitUntilDone(2000);
-//  translate.translate(text, check_translation);
-//}
-// 
-//exports.test_german = function(test) {
-//  test_languages(test, "Eidechse");
-//}
-// 
-//exports.test_italian = function(test) {
-//  test_languages(test, "Lucertola");
-//}
-// 
-//exports.test_finnish = function(test) {
-//  test_languages(test, "Lisko");
-//}
-// 
-//exports.test_error = function(test) {
-//  test.assertRaises(function() {
-//    translate.translate("", check_translation);
-//  },
-//  "Text to translate must not be empty");
-//};
+
+exports.test_avg = function(test){
+    m.clear(url);
+    
+    m.add(url, 10);
+    test.assertEqual(m.getAverage(url), 10);
+
+    m.add(url, 20);
+    test.assertEqual(m.getAverage(url), 15);
+
+    m.add(url, 0);
+    m.add(url, 0);
+    test.assertEqual(m.getAverage(url), 7.5);
+    
+    test.done();
+}
+
+exports.test_get = function(test){
+    m.clear(url);
+    
+    m.add(url, 10);
+    test.assertEqual(String(m.get(url)), String([10]));
+    
+    m.add(url, 5.5);
+    test.assertEqual(String(m.get(url)), String([10, 5.5]));
+
+    m.add(url, 0);
+    test.assertEqual(String(m.get(url)), String([10, 5.5, 0]));
+}
