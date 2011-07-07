@@ -1,13 +1,11 @@
-var measurement = require("domcontentloaded/measurement");
-var testRunner;
-var remainingTests;
-var url = 'onet.pl';
- 
+
 exports.test_add = function(test) {
-    
-    measurement.add(url, 10);
-    
-    testRunner.assertEqual(measurement.getLast(url), 10);
+    var m = require('domcontentloaded/measurement');
+    var url = 'onet.pl';
+
+    m.add(url, 10);
+    testRunner.assertEqual(m.getLast(url), 10);
+    testRunner.done();
 }
  
 //function check_translation(translation) {
