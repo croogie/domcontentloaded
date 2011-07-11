@@ -27,7 +27,17 @@
     </article>
 </section>
 <section id="details">
-    <article>
+    <article class="chart-options">
+        <div class="option opt-dcl">
+            <label><input id="check-dcl" checked type="checkbox"/>DomContentLoaded [ms]</label>
+            <label class="sub"><input checked id="check-dcl-avg" type="checkbox"/>Average [ms]</label>
+        </div>
+        <div class="option opt-ol">
+            <label><input id="check-ol" type="checkbox"/>onLoad [ms]</label>
+            <label class="sub"><input id="check-ol-avg" type="checkbox"/>Average [ms]</label>
+        </div>
+    </article>
+    <article class="widget-options">
         <button id="clear-data">Clear stored data</button>
         <button id="widget-switch">Enable widget</button>
     </article>

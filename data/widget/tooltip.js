@@ -7,28 +7,59 @@ var formatData = function(arr) {
     return narr;
 };
 
+var lastData, lastTitle;
+
 var rebuildChart = function(title, data) {
+    lastData = data;
+    lastTitle = title;
     var chartTitle = title || 'DomContentLoaded Chart';
     
     var line1 = data ? formatData(data[0]) : [];
     var line2 = data ? formatData(data[1]) : [];
+    var line3 = data ? formatData(data[2]) : [];
+    var line4 = data ? formatData(data[3]) : [];
 
     $('#chart-container').empty();
     var tbody = $('#table table tbody');
     tbody.empty();
     buildTable(line1, line2).appendTo(tbody);
     
-    var plot1 = $.jqplot('chart-container', [line1, line2], {
+    var plot1 = $.jqplot('chart-container', [line1, line2, line3, line4], {
         title: title,
+        highlightMouseOver: false,
+        highlightMouseDown: true,
         highlighter: {
             show: true,
             tooltipAxes: 'y',
-            tooltipFormatString: '$%.2f'
+            tooltipFormatString: '$%.2f[ms]'
         },
+        axes: {
+            xaxis: {
+                pad: 0.5
+            },
+            y2axis: {
+                pad: 0.5
+            }
+        },
+        series: [
+            {show: $('#check-dcl').is(':checked'),     color: '#E01414'},
+            {show: $('#check-dcl-avg').is(':checked'), color: '#F48484'},
+            {show: $('#check-ol').is(':checked'),      color: '#1376D3'},
+            {show: $('#check-ol-avg').is(':checked'),  color: '#84BEF4'}
+        ],
         cursor: {
             show: false
         }
     });
+
+    $('#table .data, #chart-container').stop().fadeTo('fast', 1);
+
+//    $('#chart-container').bind(
+//        'jqplotDataClick',
+//        function (ev, seriesIndex, pointIndex, data) {
+//            console.info('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+//        }
+//    );
 };
 
 var buildTable = function(dcl, avg) {
@@ -57,6 +88,16 @@ $('#widget-switch').click(function() {
     }
 });
 
+$('#clear-data').click(function(){
+    if ($('#table tbody tr').length) {
+        self.port.emit('clear');
+    }
+});
+
+$('.chart-options input').change(function(){
+    rebuildChart(lastTitle, lastData);
+});
+
 self.port.on("widgetSwitched", function(state) {
     var button = $('#widget-switch');
     if (state) {
@@ -64,6 +105,10 @@ self.port.on("widgetSwitched", function(state) {
     } else {
         button.text('Enable widget').data('enabled', 0);
     }
+});
+
+self.port.on('loading', function(){
+    $('#table .data, #chart-container').stop().fadeTo('fast', 0.2);
 });
 
 self.port.on("reloadContent", function(title, data) {

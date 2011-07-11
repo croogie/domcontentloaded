@@ -63,8 +63,31 @@ h1 {
 
 #details {
     clear: both;
-    height: 50px;
-    text-align: right;
+    overflow: hidden;
+}
+#details article.widget-options {
+    line-height: 50px;
+    float: right;
+}
+
+#details article.chart-options {
+    float: left;
+    padding-left: 5px;
+    padding-top: 3px;
+}
+#details article.chart-options .option {
+    display: inline-block;
+    margin-right: 10px;
+}
+#details .chart-options .option.opt-ol label { color: #1376D3; }
+#details .chart-options .option.opt-ol label.sub { color: #84BEF4; }
+#details .chart-options .option.opt-dcl label { color: #E01414; }
+#details .chart-options .option.opt-dcl label.sub { color: #F48484; }
+#details article.chart-options .option label {
+    display: block;
+    line-height: 17px;
+    font-size: 11px;
+    height: 17px;
 }
 #details button {
     height: 24px;
@@ -74,4 +97,8 @@ h1 {
     border-radius: 5px;
     border-width: 0;
     color: white;
+}
+
+label.sub {
+    padding-left: 10px;
 }
