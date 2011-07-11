@@ -9,11 +9,15 @@ var formatData = function(arr) {
 
 var rebuildChart = function(title, data) {
     var chartTitle = title || 'DomContentLoaded Chart';
+    
     var line1 = data ? formatData(data[0]) : [];
     var line2 = data ? formatData(data[1]) : [];
 
     $('#chart-container').empty();
-
+    var tbody = $('#table table tbody');
+    tbody.empty();
+    buildTable(line1, line2).appendTo(tbody);
+    
     var plot1 = $.jqplot('chart-container', [line1, line2], {
         title: title,
         highlighter: {
@@ -25,6 +29,24 @@ var rebuildChart = function(title, data) {
             show: false
         }
     });
+};
+
+var buildTable = function(dcl, avg) {
+    var row = $('<tbody><tr><td>${no}</td><td>${dcl}</td><td>${avg}</td></tr></tbody>');
+    var data = [];
+    var a = 0;
+    
+    for (var i in dcl){
+        data.push({
+            no: a+1,
+            dcl: dcl[a][1],
+            avg: avg[a][1].toFixed(2)
+        });
+        a++;
+    }
+    var tbody = $(row).tmpl(data);
+    
+    return tbody;
 };
 
 $('#widget-switch').click(function() {
@@ -45,7 +67,5 @@ self.port.on("widgetSwitched", function(state) {
 });
 
 self.port.on("reloadContent", function(title, data) {
-    console.info('DATA PROVIDED 0: ', data[0]);
-    console.info('DATA PROVIDED 1: ', data[1]);
     rebuildChart(title, data);
 });
