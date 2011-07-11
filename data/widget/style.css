@@ -1,0 +1,78 @@
+body {
+    overflow: hidden;
+    font: 10px arial, helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    background-color: #666;
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+    margin: 0;
+    padding: 2px 0;
+    text-align: center;
+    cursor: default;
+}
+#chart {
+    background-color: #FFF;
+    width: 300px;
+    height: 230px;
+    float: left;
+}
+#table {
+    width: 200px;
+    height: 230px;
+    float: left;
+}
+#table .data {
+    height: 213px;
+    border-left: 1px solid #666;
+}
+#table table {
+    width: 199px;
+    border-collapse: collapse;
+}
+#table table thead{
+    display: block;
+    width: 199px;
+}
+#table table tbody{
+    overflow: auto;
+    height: 198px;
+    width: 199px;
+    display: block;
+    background-color: white;
+}
+#table table th {
+    background-color: #ccc;
+    color: #333;
+    text-align: left !important;
+}
+#table table thead th:nth-child(1), #table table tbody td:nth-child(1) {width: 20px;}
+#table table thead th:nth-child(2), #table table tbody td:nth-child(2) {width: 50px;}
+#table table thead th:nth-child(3), #table table tbody td:nth-child(3) {width: 50px;}
+#table table thead th:nth-child(4), #table table tbody td:nth-child(4) {width: 79px;}
+
+#table table td {
+    border-bottom: 1px solid #cccccc;
+    color: #666;
+    background-color: #FFF;
+    text-align: left !important;
+}
+
+#details {
+    clear: both;
+    height: 50px;
+    text-align: right;
+}
+#details button {
+    height: 24px;
+    line-height: 24px;
+    margin: 3px 2px 3px 0;
+    background-color: #666666;
+    border-radius: 5px;
+    border-width: 0;
+    color: white;
+}
