@@ -89,9 +89,7 @@ $('#widget-switch').click(function() {
 });
 
 $('#clear-data').click(function(){
-    if ($('#table tbody tr').length) {
-        self.port.emit('clear');
-    }
+    self.port.emit('clear');
 });
 
 $('.chart-options input').change(function(){
